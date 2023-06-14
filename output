@@ -1,0 +1,22 @@
+TRACE: main.jsonnet:22 
+Invalid parameters:
+  Parameter enum is invalid:
+    Value "c" MUST match schema:
+      {
+        "enum": [
+          "a",
+          "b"
+        ],
+        "type": "string"
+      }
+  Parameter str is invalid:
+    Value 1 MUST match schema:
+      {
+        "type": "string"
+      }
+RUNTIME ERROR: Invalid parameters for function "f"
+	main.jsonnet:(72:7)-(77:48)	
+	Checking object assertions	
+	Field "return"	
+	During manifestation	
+

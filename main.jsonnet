@@ -7,12 +7,14 @@ local checkParameters(o) =
        else '.'),
     ]
     for n in std.objectFields(o)
-    if (std.isArray(o[n]) && !o[n][0]) || !o[n]
+    if (std.isArray(o[n]) && !o[n][0])
+        || (std.isBoolean(o[n]) && !o[n])
   ];
   local tests = std.all([
-    o[n]
+    o[n][0]
     for n in std.objectFields(o)
-    if (std.isArray(o[n]) && !o[n][0]) || !o[n]
+    if (std.isArray(o[n]) && !o[n][0])
+        || (std.isBoolean(o[n]) && !o[n])
   ]);
   if tests
   then true
@@ -29,9 +31,8 @@ local checkParameters(o) =
 local customCheck(value) =
   std.member(['a', 'b'], value);
 
-local schemaCheck(value) =
+local schemaCheck(value, schema) =
   local v = import 'crdsonnet/validate.libsonnet';
-  local schema = { type: 'string', maxLength: 1 };
   local indent = '    ';
   [
     v.validate(value, schema),
@@ -39,13 +40,42 @@ local schemaCheck(value) =
     indent + std.manifestJsonEx(schema, '  ', '\n  ' + indent),
   ];
 
-local f(num, str, enum) =
+local stringMaxLengthCheck(value) =
+  local schema = { type: 'string', maxLength: 1 };
+  schemaCheck(value, schema);
+
+local checkFromDocstring(values, docstring) =
+  local args = docstring.args;
   {
-    assert checkParameters({
-      num: std.isNumber(num),
-      str: schemaCheck(str),
-      enum: customCheck(enum),
-    }) : 'Invalid parameters for function "f"',
+    [args[i].name]:
+      schemaCheck(
+        values[i],
+        {
+          type: args[i].type,
+          [if 'enums' in args[i] then 'enum']: args[i].enums,
+        }
+      )
+    for i in std.range(0, std.length(values) - 1)
   };
 
-f(1, 'bddd', 'c')
+{
+  local root = self,
+  '#f':: {
+    args: [
+      { name: 'num', type: 'number' },
+      { name: 'str', type: 'string' },
+      { name: 'enum', type: 'string', enums: ['a', 'b'] },
+    ],
+  },
+  f(num, str, enum)::
+    {
+      assert checkParameters(
+        checkFromDocstring(
+          [num, str, enum],
+          root['#f'],
+        )
+      ) : 'Invalid parameters for function "f"',
+    },
+
+  return: self.f(1, 1, 'c'),
+}
