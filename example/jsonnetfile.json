@@ -9,6 +9,14 @@
         }
       },
       "version": "master"
+    },
+    {
+      "source": {
+        "local": {
+          "directory": ".."
+        }
+      },
+      "version": ""
     }
   ],
   "legacyImports": true
