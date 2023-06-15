@@ -8,8 +8,8 @@ local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
       'validate-libsonnet',
       'github.com/Duologic/validate-libsonnet',
       |||
-        Type checking is a common grievance in jsonnet land, this library is an aid to
-        validate function parameters and other values.
+        Type checking is a common grievance in the jsonnet eco-system, this library is an
+        aid to validate function parameters and other values.
 
         Here's a comprehensive example validating the function arguments against the
         arguments documented by docsonnet:
