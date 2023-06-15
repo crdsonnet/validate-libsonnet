@@ -3,15 +3,43 @@ local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
 {
   local root = self,
 
-  '#': d.package.new(
-         'validate-libsonnet',
-         'github.com/Duologic/validate-libsonnet',
-         '',
-         std.thisFile,
-       )
-       + d.package.withUsageTemplate(
-         "local validate = import '%(import)s';"
-       ),
+  '#':
+    d.package.new(
+      'validate-libsonnet',
+      'github.com/Duologic/validate-libsonnet',
+      |||
+        Type checking is a common grievance in jsonnet land, this library is an aid to
+        validate function parameters and other values.
+
+        Here's a comprehensive example validating the function arguments against the
+        arguments documented by docsonnet:
+
+        ```jsonnet
+        %s
+        ```
+
+        A failure output would look like this:
+
+        ```
+        %s
+        ```
+      ||| % [
+        std.strReplace(
+          importstr 'example/fromdocstring.jsonnet',
+          'validate-libsonnet',
+          'github.com/Duologic/validate-libsonnet',
+        ),
+        std.strReplace(
+          importstr 'example/fromdocstring.jsonnet.output',
+          'validate-libsonnet',
+          'github.com/Duologic/validate-libsonnet',
+        ),
+      ],
+      std.thisFile,
+    )
+    + d.package.withUsageTemplate(
+      "local validate = import '%(import)s'"
+    ),
 
   '#checkParameters': d.fn(
     |||

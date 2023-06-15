@@ -1,5 +1,64 @@
 # validate-libsonnet
 
+Type checking is a common grievance in jsonnet land, this library is an aid to
+validate function parameters and other values.
+
+Here's a comprehensive example validating the function arguments against the
+arguments documented by docsonnet:
+
+```jsonnet
+local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
+local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
+
+{
+  '#func'::
+    d.func.new(
+      'sample function',
+      args=[
+        d.arg('num', d.T.number),
+        d.arg('str', d.T.string),
+        d.arg('enum', d.T.string, enums=['valid', 'values']),
+      ],
+    ),
+  func(num, str, enum)::
+    assert validate.checkParamsFromDocstring(
+      [num, str, enum],
+      self['#func'],
+    );
+    {/* do something here */ },
+
+  return: self.func(100, 'this is a string', 'valid'),
+}
+
+```
+
+A failure output would look like this:
+
+```
+TRACE: vendor/github.com/Duologic/validate-libsonnet/main.libsonnet:63 
+Invalid parameters:
+  Parameter enum is invalid:
+    Value "invalid" MUST match schema:
+      {
+        "enum": [
+          "valid",
+          "values"
+        ],
+        "type": "string"
+      }
+  Parameter str is invalid:
+    Value 20 MUST match schema:
+      {
+        "type": "string"
+      }
+RUNTIME ERROR: Assertion failed
+	fromdocstring.jsonnet:(15:5)-(19:31)	
+	fromdocstring.jsonnet:21:11-40	object <anonymous>
+	Field "return"	
+	During manifestation	
+
+
+```
 
 
 ## Install
@@ -11,7 +70,7 @@ jb install github.com/Duologic/validate-libsonnet@master
 ## Usage
 
 ```jsonnet
-local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
+local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet'
 ```
 
 ## Index
