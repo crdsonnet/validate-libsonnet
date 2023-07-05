@@ -6,7 +6,7 @@ local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
   '#':
     d.package.new(
       'validate-libsonnet',
-      'github.com/Duologic/validate-libsonnet',
+      'github.com/crdsonnet/validate-libsonnet',
       |||
         Type checking is a common grievance in the jsonnet eco-system, this library is an
         aid to validate function parameters and other values.
@@ -27,12 +27,12 @@ local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
         std.strReplace(
           importstr 'example/fromdocstring.jsonnet',
           'validate-libsonnet',
-          'github.com/Duologic/validate-libsonnet',
+          'github.com/crdsonnet/validate-libsonnet',
         ),
         std.strReplace(
           importstr 'example/fromdocstring.jsonnet.output',
           'validate-libsonnet',
-          'github.com/Duologic/validate-libsonnet',
+          'github.com/crdsonnet/validate-libsonnet',
         ),
       ],
       std.thisFile,
@@ -58,12 +58,12 @@ local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
       std.strReplace(
         importstr 'example/simple.jsonnet',
         'validate-libsonnet',
-        'github.com/Duologic/validate-libsonnet',
+        'github.com/crdsonnet/validate-libsonnet',
       ),
       std.strReplace(
         importstr 'example/fromdocstring.jsonnet.output',
         'validate-libsonnet',
-        'github.com/Duologic/validate-libsonnet',
+        'github.com/crdsonnet/validate-libsonnet',
       ),
     ],
     args=[d.arg('checks', d.T.object)],
@@ -117,12 +117,12 @@ local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
       std.strReplace(
         importstr 'example/fromdocstring.jsonnet',
         'validate-libsonnet',
-        'github.com/Duologic/validate-libsonnet',
+        'github.com/crdsonnet/validate-libsonnet',
       ),
       std.strReplace(
         importstr 'example/fromdocstring.jsonnet.output',
         'validate-libsonnet',
-        'github.com/Duologic/validate-libsonnet',
+        'github.com/crdsonnet/validate-libsonnet',
       ),
     ],
     args=[

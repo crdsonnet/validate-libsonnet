@@ -8,7 +8,7 @@ arguments documented by docsonnet:
 
 ```jsonnet
 local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
-local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
+local validate = import 'github.com/crdsonnet/validate-libsonnet/main.libsonnet';
 
 {
   '#func'::
@@ -35,7 +35,7 @@ local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
 A failure output would look like this:
 
 ```
-TRACE: vendor/github.com/Duologic/validate-libsonnet/main.libsonnet:63 
+TRACE: vendor/github.com/crdsonnet/validate-libsonnet/main.libsonnet:63 
 Invalid parameters:
   Parameter enum is invalid:
     Value "invalid" MUST match schema:
@@ -64,13 +64,13 @@ RUNTIME ERROR: Assertion failed
 ## Install
 
 ```
-jb install github.com/Duologic/validate-libsonnet@master
+jb install github.com/crdsonnet/validate-libsonnet@master
 ```
 
 ## Usage
 
 ```jsonnet
-local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet'
+local validate = import 'github.com/crdsonnet/validate-libsonnet/main.libsonnet'
 ```
 
 ## Index
@@ -91,7 +91,7 @@ checkParameters(checks)
 `checkParameters` validates parameters against their `checks`.
 
 ```jsonnet
-local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
+local validate = import 'github.com/crdsonnet/validate-libsonnet/main.libsonnet';
 
 local func(arg) =
   assert validate.checkParameters({
@@ -106,7 +106,7 @@ func('this is a string')
 A failure output would look like this:
 
 ```
-TRACE: vendor/github.com/Duologic/validate-libsonnet/main.libsonnet:63 
+TRACE: vendor/github.com/crdsonnet/validate-libsonnet/main.libsonnet:63 
 Invalid parameters:
   Parameter enum is invalid:
     Value "invalid" MUST match schema:
@@ -142,7 +142,7 @@ checkParamsFromDocstring(params, docstring)
 
 ```jsonnet
 local d = import 'github.com/jsonnet-libs/docsonnet/doc-util/main.libsonnet';
-local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
+local validate = import 'github.com/crdsonnet/validate-libsonnet/main.libsonnet';
 
 {
   '#func'::
@@ -169,7 +169,7 @@ local validate = import 'github.com/Duologic/validate-libsonnet/main.libsonnet';
 A failure output would look like this:
 
 ```
-TRACE: vendor/github.com/Duologic/validate-libsonnet/main.libsonnet:63 
+TRACE: vendor/github.com/crdsonnet/validate-libsonnet/main.libsonnet:63 
 Invalid parameters:
   Parameter enum is invalid:
     Value "invalid" MUST match schema:
